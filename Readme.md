@@ -1,0 +1,2 @@
+# RS School REST service
+
