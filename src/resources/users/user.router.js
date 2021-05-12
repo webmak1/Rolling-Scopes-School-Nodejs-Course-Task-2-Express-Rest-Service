@@ -3,20 +3,17 @@ const router = require('express').Router();
 const User = require('./user.model');
 const usersService = require('./user.service');
 
-router.route('/').get(async (req, res) => {
-  const users = await usersService.getAll();
-  return res.json(users.map(User.toResponse));
+// GET ALL
+router.route('/').get(async (_req, res) => {
+  return res.json(await usersService.getAll());
 });
 
+// GET BY ID
 router.route('/:id').get(async (req, res) => {
-  try {
-    const user = await usersService.get(req.params.id);
-    return res.json(User.toResponse(user));
-  } catch (err) {
-    return res.status(StatusCodes.NOT_FOUND).send(err.message);
-  }
+  return res.json(await usersService.get(req.params.id));
 });
 
+// CREATE
 router.route('/').post(async (req, res) => {
   const user = await usersService.create(
     new User({
@@ -28,6 +25,7 @@ router.route('/').post(async (req, res) => {
   return res.status(StatusCodes.CREATED).json(User.toResponse(user));
 });
 
+// UPDATE
 router.route('/:id').put(async (req, res) => {
   try {
     const user = await usersService.update(req.params.id, req.body);
@@ -37,6 +35,7 @@ router.route('/:id').put(async (req, res) => {
   }
 });
 
+// DELETE
 router.route('/:id').delete(async (req, res) => {
   try {
     const user = await usersService.remove(req.params.id);

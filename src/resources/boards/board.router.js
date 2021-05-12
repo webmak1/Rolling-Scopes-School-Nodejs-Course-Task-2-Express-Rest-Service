@@ -3,13 +3,13 @@ const router = require('express').Router();
 const Board = require('./board.model');
 const boardsService = require('./board.service');
 
-// Get All
+// GET ALL
 router.route('/').get(async (req, res) => {
   const boards = await boardsService.getAll();
   return res.json(boards.map(Board.toResponse));
 });
 
-// Get By Id
+// GET BY ID
 router.route('/:id').get(async (req, res) => {
   const boardId = req.params.id;
 

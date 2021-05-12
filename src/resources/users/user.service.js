@@ -1,10 +1,19 @@
 const usersRepo = require('./user.memory.repository');
+const User = require('./user.model');
 
-const getAll = () => usersRepo.getAll();
+const getAll = async () => {
+  const users = await usersRepo.getAll();
+  return users.map(User.toResponse);
+};
 
-const get = (id) => usersRepo.get(id);
+const get = async (id) => {
+  const user = await usersRepo.get(id);
+  return User.toResponse(user);
+};
 
-const create = (user) => usersRepo.create(user);
+const create = (user) => {
+  return usersRepo.create(user);
+};
 
 const update = (id, body) => usersRepo.update(id, body);
 
