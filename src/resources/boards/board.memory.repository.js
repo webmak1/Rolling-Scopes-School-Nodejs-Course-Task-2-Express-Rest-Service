@@ -12,15 +12,15 @@ const get = async (id) => {
   return board;
 };
 
-const create = async (board) => {
+const create = (board) => {
   return DBBoards.createBoard(board);
 };
 
-const update = async (id, body) => {
+const update = (id, body) => {
   return DBBoards.updateBoard(id, body);
 };
 
-const remove = async (boardId) => {
+const remove = (boardId) => {
   return DBBoards.removeBoard(boardId);
 };
 

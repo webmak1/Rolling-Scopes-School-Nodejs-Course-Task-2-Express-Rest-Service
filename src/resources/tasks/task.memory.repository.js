@@ -12,15 +12,15 @@ const get = async (boardId, taskId) => {
   return task;
 };
 
-const create = async (task) => {
+const create = (task) => {
   return DBTasks.createTask(task);
 };
 
-const update = async (boardId, taskId, body) => {
+const update = (boardId, taskId, body) => {
   return DBTasks.updateTask(boardId, taskId, body);
 };
 
-const remove = async (id) => {
+const remove = (id) => {
   return DBTasks.removeTask(id);
 };
 

@@ -12,15 +12,15 @@ const get = async (id) => {
   return user;
 };
 
-const create = async (user) => {
+const create = (user) => {
   return DBUsers.createUser(user);
 };
 
-const update = async (id, body) => {
+const update = (id, body) => {
   return DBUsers.updateUser(id, body);
 };
 
-const remove = async (id) => {
+const remove = (id) => {
   return DBUsers.removeUser(id);
 };
 

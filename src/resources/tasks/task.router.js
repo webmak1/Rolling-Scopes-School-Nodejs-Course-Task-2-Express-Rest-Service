@@ -5,15 +5,17 @@ const tasksService = require('./task.service');
 
 // GET ALL
 router.route('/').get(async (_req, res) => {
-  return res.json(await tasksService.getAll());
+  try {
+    return res.json(await tasksService.getAll());
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).send(err.message);
+  }
 });
 
 // GET BY ID
 router.route('/:id').get(async (req, res) => {
-  const { boardId, id: taskId } = req.params;
   try {
-    const task = await tasksService.get(boardId, taskId);
-    return res.json(Task.toResponse(task));
+    return res.json(await tasksService.get(req));
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
@@ -21,17 +23,29 @@ router.route('/:id').get(async (req, res) => {
 
 // CREATE
 router.route('/').post(async (req, res) => {
-  return res.status(StatusCodes.CREATED).json(await tasksService.create(req));
+  try {
+    return res.status(StatusCodes.CREATED).json(await tasksService.create(req));
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).send(err.message);
+  }
 });
 
 // UPDATE
 router.route('/:id').put(async (req, res) => {
-  return res.json(await tasksService.update(req));
+  try {
+    return res.json(await tasksService.update(req));
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).send(err.message);
+  }
 });
 
 // DELETE
 router.route('/:id').delete(async (req, res) => {
-  return res.json(await tasksService.remove(req));
+  try {
+    return res.json(await tasksService.remove(req));
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).send(err.message);
+  }
 });
 
 module.exports = router;

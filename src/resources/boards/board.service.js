@@ -6,8 +6,10 @@ const getAll = async () => {
   return boards.map(Board.toResponse);
 };
 
-const get = (id) => {
-  return boardsRepo.get(id);
+const get = async (req) => {
+  const { id: boardId } = req.params;
+  const board = await boardsRepo.get(boardId);
+  return Board.toResponse(board);
 };
 
 const create = async (req) => {
