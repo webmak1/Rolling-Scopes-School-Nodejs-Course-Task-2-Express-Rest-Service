@@ -3,9 +3,9 @@ const router = require('express').Router({ mergeParams: true });
 const Task = require('./task.model');
 const tasksService = require('./task.service');
 
-router.route('/').get(async (req, res) => {
-  const tasks = await tasksService.getAll();
-  return res.json(tasks.map(Task.toResponse));
+// GET ALL
+router.route('/').get(async (_req, res) => {
+  return res.json(await tasksService.getAll());
 });
 
 // GET BY ID
@@ -35,6 +35,7 @@ router.route('/').post(async (req, res) => {
   return res.status(StatusCodes.CREATED).json(Task.toResponse(task));
 });
 
+// UPDATE
 router.route('/:id').put(async (req, res) => {
   const boardId = req.params.boardId;
   const taskId = req.params.id;
@@ -47,6 +48,7 @@ router.route('/:id').put(async (req, res) => {
   }
 });
 
+// DELETE
 router.route('/:id').delete(async (req, res) => {
   try {
     const task = await tasksService.remove(req.params.id);
