@@ -9,7 +9,7 @@ router.route('/').get(async (_req, res) => {
 
 // GET BY ID
 router.route('/:id').get(async (req, res) => {
-  return res.json(await usersService.get(req.params.id));
+  return res.json(await usersService.get(req));
 });
 
 // CREATE

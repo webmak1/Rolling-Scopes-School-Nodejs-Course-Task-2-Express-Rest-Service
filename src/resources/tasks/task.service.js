@@ -9,22 +9,24 @@ const get = (boardId, taskId) => {
   return tasksRepo.get(boardId, taskId);
 };
 const create = async (req) => {
+  const { title, order, description, userId, columnId } = req.body;
+  const { boardId } = req.params;
+
   const task = await tasksRepo.create(
     new Task({
-      title: req.body.title,
-      order: req.body.order,
-      description: req.body.description,
-      userId: req.body.userId,
-      boardId: req.params.boardId,
-      columnId: req.body.columnId,
+      title,
+      order,
+      description,
+      userId,
+      boardId,
+      columnId,
     })
   );
   return Task.toResponse(task);
 };
 const update = async (req) => {
-  const boardId = req.params.boardId;
-  const taskId = req.params.id;
-  const body = req.body;
+  const { body } = req;
+  const { boardId, id: taskId } = req.params;
 
   const updatedTask = await tasksRepo.update(boardId, taskId, body);
   return Task.toResponse(updatedTask);

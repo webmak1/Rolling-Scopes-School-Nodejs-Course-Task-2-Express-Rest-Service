@@ -6,8 +6,8 @@ const getAll = async () => {
   return users.map(User.toResponse);
 };
 
-const get = async (id) => {
-  const user = await usersRepo.get(id);
+const get = async (req) => {
+  const user = await usersRepo.get(req.params.id);
   return User.toResponse(user);
 };
 
@@ -28,8 +28,8 @@ const update = async (id, body) => {
 };
 
 const remove = async (id) => {
-    const user = await usersRepo.remove(id);
-    return User.toResponse(user);
-  };
+  const user = await usersRepo.remove(id);
+  return User.toResponse(user);
+};
 
 module.exports = { getAll, get, create, remove, update };

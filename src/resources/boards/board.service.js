@@ -25,7 +25,11 @@ const update = async (req) => {
   return Board.toResponse(board);
 };
 
-const remove = (boardId) => boardsRepo.remove(boardId);
+const remove = async (req) => {
+  const { id: boardId } = req.params;
+  const board = await boardsRepo.remove(boardId);
+  return Board.toResponse(board);
+};
 
 module.exports = {
   getAll,
