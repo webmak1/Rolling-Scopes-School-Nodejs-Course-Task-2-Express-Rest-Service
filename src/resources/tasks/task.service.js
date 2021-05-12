@@ -19,8 +19,15 @@ const create = async (req) => {
   );
   return Task.toResponse(task);
 };
-const update = (boardId, taskId, body) =>
-  tasksRepo.update(boardId, taskId, body);
+const update = async (req) => {
+  const boardId = req.params.boardId;
+  const taskId = req.params.id;
+  const body = req.body;
+
+  const updatedTask = await tasksRepo.update(boardId, taskId, body);
+  return Task.toResponse(updatedTask);
+};
+
 const remove = (id) => tasksRepo.remove(id);
 
 module.exports = { getAll, get, create, update, remove };

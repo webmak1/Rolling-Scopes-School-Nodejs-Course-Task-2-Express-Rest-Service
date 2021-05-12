@@ -27,15 +27,7 @@ router.route('/').post(async (req, res) => {
 
 // UPDATE
 router.route('/:id').put(async (req, res) => {
-  const boardId = req.params.boardId;
-  const taskId = req.params.id;
-  const body = req.body;
-  try {
-    const updatedTask = await tasksService.update(boardId, taskId, body);
-    return res.json(Task.toResponse(updatedTask));
-  } catch (err) {
-    res.status(StatusCodes.NOT_FOUND).send(err.message);
-  }
+  return res.json(await tasksService.update(req));
 });
 
 // DELETE
