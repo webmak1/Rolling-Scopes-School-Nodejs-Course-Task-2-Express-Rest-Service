@@ -32,12 +32,7 @@ router.route('/:id').put(async (req, res) => {
 
 // DELETE
 router.route('/:id').delete(async (req, res) => {
-  try {
-    const task = await tasksService.remove(req.params.id);
-    return res.json(Task.toResponse(task));
-  } catch (err) {
-    res.status(StatusCodes.NOT_FOUND).send(err.message);
-  }
+  return res.json(await tasksService.remove(req));
 });
 
 module.exports = router;

@@ -28,6 +28,9 @@ const update = async (req) => {
   return Task.toResponse(updatedTask);
 };
 
-const remove = (id) => tasksRepo.remove(id);
+const remove = async (req) => {
+  const task = await tasksRepo.remove(req.params.id);
+  return Task.toResponse(task);
+};
 
 module.exports = { getAll, get, create, update, remove };
