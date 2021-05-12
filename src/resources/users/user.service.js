@@ -22,8 +22,14 @@ const create = async (req) => {
   return User.toResponse(createdUser);
 };
 
-const update = (id, body) => usersRepo.update(id, body);
+const update = async (id, body) => {
+  const user = await usersRepo.update(id, body);
+  return User.toResponse(user);
+};
 
-const remove = (id) => usersRepo.remove(id);
+const remove = async (id) => {
+    const user = await usersRepo.remove(id);
+    return User.toResponse(user);
+  };
 
 module.exports = { getAll, get, create, remove, update };
