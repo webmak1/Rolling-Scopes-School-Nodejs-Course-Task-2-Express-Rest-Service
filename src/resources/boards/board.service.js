@@ -6,9 +6,20 @@ const getAll = async () => {
   return boards.map(Board.toResponse);
 };
 
-const get = (id) => boardsRepo.get(id);
+const get = (id) => {
+  return boardsRepo.get(id);
+};
 
-const create = (board) => boardsRepo.create(board);
+const create = async (req) => {
+  const board = await boardsRepo.create(
+    new Board({
+      title: req.body.title,
+      columns: req.body.columns,
+    })
+  );
+  //return res.status(StatusCodes.CREATED).json(Board.toResponse(board));
+  return Board.toResponse(board);
+};
 
 const update = (id, body) => boardsRepo.update(id, body);
 

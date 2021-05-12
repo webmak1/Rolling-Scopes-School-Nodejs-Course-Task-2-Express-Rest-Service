@@ -4,7 +4,7 @@ const Board = require('./board.model');
 const boardsService = require('./board.service');
 
 // GET ALL
-router.route('/').get(async (req, res) => {
+router.route('/').get(async (_req, res) => {
   return res.json(await boardsService.getAll());
 });
 
@@ -22,15 +22,10 @@ router.route('/:id').get(async (req, res) => {
 
 // CREATE
 router.route('/').post(async (req, res) => {
-  const board = await boardsService.create(
-    new Board({
-      title: req.body.title,
-      columns: req.body.columns,
-    })
-  );
-  return res.status(StatusCodes.CREATED).json(Board.toResponse(board));
+  return res.status(StatusCodes.CREATED).json(await boardsService.create(req));
 });
 
+// UPDATE
 router.route('/:id').put(async (req, res) => {
   try {
     const board = await boardsService.update(req.params.id, req.body);
@@ -40,6 +35,7 @@ router.route('/:id').put(async (req, res) => {
   }
 });
 
+// DELETE
 router.route('/:id').delete(async (req, res) => {
   const boardId = req.params.id;
   try {
