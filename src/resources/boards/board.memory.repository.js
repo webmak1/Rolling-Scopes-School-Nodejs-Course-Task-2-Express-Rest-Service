@@ -12,17 +12,11 @@ const get = async (id) => {
   return board;
 };
 
-const create = (board) => {
-  return DBBoards.createBoard(board);
-};
+const create = (board) => DBBoards.createBoard(board);
 
-const update = (id, body) => {
-  return DBBoards.updateBoard(id, body);
-};
+const update = (id, body) => DBBoards.updateBoard(id, body);
 
-const remove = (boardId) => {
-  return DBBoards.removeBoard(boardId);
-};
+const remove = (boardId) => DBBoards.removeBoard(boardId);
 
 module.exports = {
   getAll,

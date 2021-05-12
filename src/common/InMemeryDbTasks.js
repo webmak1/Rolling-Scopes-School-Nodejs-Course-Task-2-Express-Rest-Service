@@ -2,9 +2,7 @@ const _ = require('lodash');
 
 const DBTasks = [];
 
-const getAllTasks = async () => {
-  return DBTasks.slice(0);
-};
+const getAllTasks = async () => DBTasks.slice(0);
 
 const getTask = async (boardId, taskId) => {
   const allTasks = await getAllTasks();
@@ -41,9 +39,7 @@ const updateTask = async (boardId, taskId, body) => {
 
 const removeTask = async (id) => {
   const deletedTask = await getTask(null, id);
-  await _.remove(DBTasks, (task) => {
-    return task.id === id;
-  });
+  await _.remove(DBTasks, (task) => task.id === id);
   return deletedTask;
 };
 
@@ -58,9 +54,7 @@ const deleteUserFromTasks = async (userId) => {
 };
 
 const removeTaskByBoardId = async (boardId) => {
-  await _.remove(DBTasks, (task) => {
-    return task.boardId === boardId;
-  });
+  await _.remove(DBTasks, (task) => task.boardId === boardId);
 };
 
 module.exports = {

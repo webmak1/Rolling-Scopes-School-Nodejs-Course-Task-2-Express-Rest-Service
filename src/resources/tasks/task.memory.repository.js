@@ -12,16 +12,11 @@ const get = async (boardId, taskId) => {
   return task;
 };
 
-const create = (task) => {
-  return DBTasks.createTask(task);
-};
+const create = (task) => DBTasks.createTask(task);
 
-const update = (boardId, taskId, body) => {
-  return DBTasks.updateTask(boardId, taskId, body);
-};
+const update = (boardId, taskId, body) =>
+  DBTasks.updateTask(boardId, taskId, body);
 
-const remove = (id) => {
-  return DBTasks.removeTask(id);
-};
+const remove = (id) => DBTasks.removeTask(id);
 
 module.exports = { getAll, get, create, update, remove };

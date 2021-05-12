@@ -12,16 +12,10 @@ const get = async (id) => {
   return user;
 };
 
-const create = (user) => {
-  return DBUsers.createUser(user);
-};
+const create = (user) => DBUsers.createUser(user);
 
-const update = (id, body) => {
-  return DBUsers.updateUser(id, body);
-};
+const update = (id, body) => DBUsers.updateUser(id, body);
 
-const remove = (id) => {
-  return DBUsers.removeUser(id);
-};
+const remove = (id) => DBUsers.removeUser(id);
 
 module.exports = { getAll, get, create, update, remove };

@@ -3,9 +3,7 @@ const DBTasks = require('./InMemeryDbTasks');
 
 const DBBoards = [];
 
-const getAllBoards = async () => {
-  return DBBoards.slice(0);
-};
+const getAllBoards = async () => DBBoards.slice(0);
 
 const getBoard = async (id) => {
   const allBoards = await getAllBoards();
@@ -32,9 +30,7 @@ const updateBoard = async (id, body) => {
 
 const removeBoard = async (boardId) => {
   const deletedBoard = await getBoard(boardId);
-  await _.remove(DBBoards, (board) => {
-    return board.id === boardId;
-  });
+  await _.remove(DBBoards, (board) => board.id === boardId);
 
   await DBTasks.removeTaskByBoardId(boardId);
 

@@ -3,9 +3,7 @@ const DBTasks = require('./InMemeryDbTasks');
 
 const DBUsers = [];
 
-const getAllUsers = async () => {
-  return DBUsers.slice(0);
-};
+const getAllUsers = async () => DBUsers.slice(0);
 
 const getUser = async (id) => {
   const allUsers = await getAllUsers();
@@ -32,9 +30,7 @@ const updateUser = async (id, body) => {
 
 const removeUser = async (userId) => {
   const deletedUser = await getUser(userId);
-  await _.remove(DBUsers, (user) => {
-    return user.id === userId;
-  });
+  await _.remove(DBUsers, (user) => user.id === userId);
 
   await DBTasks.deleteUserFromTasks(userId);
   return deletedUser;
