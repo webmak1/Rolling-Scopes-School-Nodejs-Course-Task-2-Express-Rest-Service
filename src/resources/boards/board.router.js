@@ -21,7 +21,7 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
-// Create
+// CREATE
 router.route('/').post(async (req, res) => {
   const board = await boardsService.create(
     new Board({

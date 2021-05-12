@@ -8,6 +8,7 @@ router.route('/').get(async (req, res) => {
   return res.json(tasks.map(Task.toResponse));
 });
 
+// GET BY ID
 router.route('/:id').get(async (req, res) => {
   const boardId = req.params.boardId;
   const taskId = req.params.id;
@@ -19,6 +20,7 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
+// CREATE
 router.route('/').post(async (req, res) => {
   const task = await tasksService.create(
     new Task({
@@ -30,7 +32,7 @@ router.route('/').post(async (req, res) => {
       columnId: req.body.columnId,
     })
   );
-  return res.json(Task.toResponse(task));
+  return res.status(StatusCodes.CREATED).json(Task.toResponse(task));
 });
 
 router.route('/:id').put(async (req, res) => {
