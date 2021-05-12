@@ -11,8 +11,15 @@ const get = async (id) => {
   return User.toResponse(user);
 };
 
-const create = (user) => {
-  return usersRepo.create(user);
+const create = async (req) => {
+  const user = new User({
+    login: req.body.login,
+    password: req.body.password,
+    name: req.body.name,
+  });
+
+  const createdUser = await usersRepo.create(user);
+  return User.toResponse(createdUser);
 };
 
 const update = (id, body) => usersRepo.update(id, body);

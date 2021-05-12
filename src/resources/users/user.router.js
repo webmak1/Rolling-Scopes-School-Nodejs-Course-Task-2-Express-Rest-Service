@@ -15,14 +15,7 @@ router.route('/:id').get(async (req, res) => {
 
 // CREATE
 router.route('/').post(async (req, res) => {
-  const user = await usersService.create(
-    new User({
-      login: req.body.login,
-      password: req.body.password,
-      name: req.body.name,
-    })
-  );
-  return res.status(StatusCodes.CREATED).json(User.toResponse(user));
+  return res.status(StatusCodes.CREATED).json(await usersService.create(req));
 });
 
 // UPDATE
