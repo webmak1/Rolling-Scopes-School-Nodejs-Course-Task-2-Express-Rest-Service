@@ -21,10 +21,6 @@ const updateUser = async (id, body) => {
   await _.map(DBUsers, (stateItem) => {
     if (stateItem.id === id) {
       _.map(stateItem, (value, key) => {
-        // if (body.hasOwnProperty(key)) {
-        //   stateItem[key] = body[key];
-        // }
-
         if (Object.prototype.hasOwnProperty.call(body, key)) {
           stateItem[key] = body[key];
         }

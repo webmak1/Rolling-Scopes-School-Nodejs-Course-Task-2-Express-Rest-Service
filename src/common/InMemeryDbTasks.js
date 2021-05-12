@@ -1,4 +1,5 @@
 const _ = require('lodash');
+
 const DBTasks = [];
 
 const getAllTasks = async () => {
@@ -28,10 +29,6 @@ const updateTask = async (boardId, taskId, body) => {
   await _.map(DBTasks, (task) => {
     if (task.id === taskId) {
       _.map(task, (value, key) => {
-        // if (body.hasOwnProperty(key)) {
-        //   stateItem[key] = body[key];
-        // }
-
         if (Object.prototype.hasOwnProperty.call(body, key)) {
           task[key] = body[key];
         }
