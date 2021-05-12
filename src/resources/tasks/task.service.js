@@ -5,7 +5,9 @@ const getAll = async () => {
   const tasks = await tasksRepo.getAll();
   return tasks.map(Task.toResponse);
 };
-const get = (boardId, taskId) => tasksRepo.get(boardId, taskId);
+const get = (boardId, taskId) => {
+  return tasksRepo.get(boardId, taskId);
+};
 const create = async (req) => {
   const task = await tasksRepo.create(
     new Task({

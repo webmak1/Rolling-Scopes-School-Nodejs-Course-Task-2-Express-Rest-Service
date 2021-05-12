@@ -5,8 +5,7 @@ const boardsService = require('./board.service');
 
 // GET ALL
 router.route('/').get(async (req, res) => {
-  const boards = await boardsService.getAll();
-  return res.json(boards.map(Board.toResponse));
+  return res.json(await boardsService.getAll());
 });
 
 // GET BY ID

@@ -1,6 +1,10 @@
 const boardsRepo = require('./board.memory.repository');
+const Board = require('./board.model');
 
-const getAll = () => boardsRepo.getAll();
+const getAll = async () => {
+  const boards = await boardsRepo.getAll();
+  return boards.map(Board.toResponse);
+};
 
 const get = (id) => boardsRepo.get(id);
 
