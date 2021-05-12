@@ -22,17 +22,7 @@ router.route('/:id').get(async (req, res) => {
 
 // CREATE
 router.route('/').post(async (req, res) => {
-  const task = await tasksService.create(
-    new Task({
-      title: req.body.title,
-      order: req.body.order,
-      description: req.body.description,
-      userId: req.body.userId,
-      boardId: req.params.boardId,
-      columnId: req.body.columnId,
-    })
-  );
-  return res.status(StatusCodes.CREATED).json(Task.toResponse(task));
+  return res.status(StatusCodes.CREATED).json(await tasksService.create(req));
 });
 
 // UPDATE

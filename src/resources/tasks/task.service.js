@@ -6,7 +6,19 @@ const getAll = async () => {
   return tasks.map(Task.toResponse);
 };
 const get = (boardId, taskId) => tasksRepo.get(boardId, taskId);
-const create = (task) => tasksRepo.create(task);
+const create = async (req) => {
+  const task = await tasksRepo.create(
+    new Task({
+      title: req.body.title,
+      order: req.body.order,
+      description: req.body.description,
+      userId: req.body.userId,
+      boardId: req.params.boardId,
+      columnId: req.body.columnId,
+    })
+  );
+  return Task.toResponse(task);
+};
 const update = (boardId, taskId, body) =>
   tasksRepo.update(boardId, taskId, body);
 const remove = (id) => tasksRepo.remove(id);
