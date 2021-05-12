@@ -27,12 +27,7 @@ router.route('/').post(async (req, res) => {
 
 // UPDATE
 router.route('/:id').put(async (req, res) => {
-  try {
-    const board = await boardsService.update(req.params.id, req.body);
-    return res.json(Board.toResponse(board));
-  } catch (err) {
-    res.status(StatusCodes.NOT_FOUND).send(err.message);
-  }
+  return res.json(await boardsService.update(req));
 });
 
 // DELETE

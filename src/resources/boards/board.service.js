@@ -17,11 +17,13 @@ const create = async (req) => {
       columns: req.body.columns,
     })
   );
-  //return res.status(StatusCodes.CREATED).json(Board.toResponse(board));
   return Board.toResponse(board);
 };
 
-const update = (id, body) => boardsRepo.update(id, body);
+const update = async (req) => {
+  const board = await boardsRepo.update(req.params.id, req.body);
+  return Board.toResponse(board);
+};
 
 const remove = (boardId) => boardsRepo.remove(boardId);
 
