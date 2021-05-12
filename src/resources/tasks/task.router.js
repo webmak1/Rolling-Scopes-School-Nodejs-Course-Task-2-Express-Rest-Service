@@ -10,8 +10,7 @@ router.route('/').get(async (_req, res) => {
 
 // GET BY ID
 router.route('/:id').get(async (req, res) => {
-  const boardId = req.params.boardId;
-  const taskId = req.params.id;
+  const { boardId, id: taskId } = req.params;
   try {
     const task = await tasksService.get(boardId, taskId);
     return res.json(Task.toResponse(task));
