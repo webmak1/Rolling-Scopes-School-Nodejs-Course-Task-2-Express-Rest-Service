@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const router = require('express').Router({ mergeParams: true });
 const Task = require('./task.model');
 const tasksService = require('./task.service');
@@ -14,7 +15,7 @@ router.route('/:id').get(async (req, res) => {
     const task = await tasksService.get(boardId, taskId);
     return res.json(Task.toResponse(task));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -40,7 +41,7 @@ router.route('/:id').put(async (req, res) => {
     const updatedTask = await tasksService.update(boardId, taskId, body);
     return res.json(Task.toResponse(updatedTask));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -49,7 +50,7 @@ router.route('/:id').delete(async (req, res) => {
     const task = await tasksService.remove(req.params.id);
     return res.json(Task.toResponse(task));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
