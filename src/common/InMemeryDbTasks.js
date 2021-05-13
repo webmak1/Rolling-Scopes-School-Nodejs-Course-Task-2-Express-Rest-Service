@@ -23,20 +23,6 @@ const createTask = async (task) => {
   return getTask(null, task.id);
 };
 
-const updateTask = async (boardId, taskId, body) => {
-  await _.map(DBTasks, (task) => {
-    if (task.id === taskId) {
-      _.map(task, (value, key) => {
-        if (Object.prototype.hasOwnProperty.call(body, key)) {
-          task[key] = body[key];
-        }
-      });
-    }
-  });
-
-  return getTask(null, taskId);
-};
-
 const removeTask = async (id) => {
   const deletedTask = await getTask(null, id);
   await _.remove(DBTasks, (task) => task.id === id);
@@ -44,13 +30,19 @@ const removeTask = async (id) => {
 };
 
 const deleteUserFromTasks = async (userId) => {
-  await _.map(DBTasks, (task) => {
+  await _.map(DBTasks, async (task) => {
     if (task.userId === userId) {
-      task.userId = null;
+      await removeTask(task.id);
+      await createTask({ ...task, userId: null });
     }
   });
-
   return null;
+};
+
+const updateTask = async (_boardId, taskId, body) => {
+  await removeTask(taskId);
+  await createTask(body);
+  return getTask(null, taskId);
 };
 
 const removeTaskByBoardId = async (boardId) => {

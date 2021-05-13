@@ -15,25 +15,17 @@ const createUser = async (user) => {
   return getUser(user.id);
 };
 
-const updateUser = async (id, body) => {
-  await _.map(DBUsers, (stateItem) => {
-    if (stateItem.id === id) {
-      _.map(stateItem, (value, key) => {
-        if (Object.prototype.hasOwnProperty.call(body, key)) {
-          stateItem[key] = body[key];
-        }
-      });
-    }
-  });
-  return getUser(id);
-};
-
 const removeUser = async (userId) => {
   const deletedUser = await getUser(userId);
   await _.remove(DBUsers, (user) => user.id === userId);
-
   await DBTasks.deleteUserFromTasks(userId);
   return deletedUser;
+};
+
+const updateUser = async (id, body) => {
+  await removeUser(id);
+  await createUser(body);
+  return getUser(id);
 };
 
 module.exports = { getAllUsers, getUser, createUser, updateUser, removeUser };

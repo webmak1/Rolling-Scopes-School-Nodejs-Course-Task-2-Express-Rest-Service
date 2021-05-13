@@ -15,26 +15,17 @@ const createBoard = async (board) => {
   return getBoard(board.id);
 };
 
-const updateBoard = async (id, body) => {
-  await _.map(DBBoards, (stateItem) => {
-    if (stateItem.id === id) {
-      _.map(stateItem, (value, key) => {
-        if (Object.prototype.hasOwnProperty.call(body, key)) {
-          stateItem[key] = body[key];
-        }
-      });
-    }
-  });
-  return getBoard(id);
-};
-
 const removeBoard = async (boardId) => {
   const deletedBoard = await getBoard(boardId);
   await _.remove(DBBoards, (board) => board.id === boardId);
-
   await DBTasks.removeTaskByBoardId(boardId);
-
   return deletedBoard;
+};
+
+const updateBoard = async (id, body) => {
+  await removeBoard(id);
+  await createBoard(body);
+  return getBoard(id);
 };
 
 module.exports = {
